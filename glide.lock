@@ -1,0 +1,12 @@
+hash: f23f9a35f07024c6925d9386a3e06610cb7fb50675385636dc92d513d5851459
+updated: 2017-09-20T00:41:51.339501234+02:00
+imports:
+- name: github.com/gotk3/gotk3
+  version: 83307073d5a2ef29b1bd1c1d49eefa39c53a41fe
+  subpackages:
+  - cairo
+  - gdk
+  - glib
+  - gtk
+  - pango
+testImports: []

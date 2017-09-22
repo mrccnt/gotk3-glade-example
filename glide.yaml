@@ -1,0 +1,5 @@
+package: .
+import:
+- package: github.com/gotk3/gotk3
+  subpackages:
+  - gtk
