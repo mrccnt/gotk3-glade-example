@@ -1,6 +1,7 @@
 /.idea
 /bin/*
 /glade/*.gresource
+/pkg
 /src/github.com
 /src/golang.org
 /vendor

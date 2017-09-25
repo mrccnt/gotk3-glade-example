@@ -42,15 +42,15 @@ We also need to install [glide](https://glide.sh) as package manager.
     
 ```bash
        
-    # Run source
+    # Install
     #
-    ./run.sh
+    ./install.sh
     
     # Build
     #
     ./build.sh
     
-    # Run binary
+    # Run
     #
-    bin/example
+    bin/gotk3-glade-example
 ```
