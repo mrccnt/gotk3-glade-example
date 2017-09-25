@@ -1,5 +1,5 @@
-hash: f23f9a35f07024c6925d9386a3e06610cb7fb50675385636dc92d513d5851459
-updated: 2017-09-20T00:41:51.339501234+02:00
+hash: f49dabae419dafedf7fb9e35c6ed06229373bcdf168f0fb492ad9e01a6df9383
+updated: 2017-09-25T23:54:44.613099466+02:00
 imports:
 - name: github.com/gotk3/gotk3
   version: 83307073d5a2ef29b1bd1c1d49eefa39c53a41fe
@@ -9,4 +9,6 @@ imports:
   - glib
   - gtk
   - pango
+- name: github.com/kardianos/osext
+  version: ae77be60afb1dcacde03767a8c37337fad28ac14
 testImports: []

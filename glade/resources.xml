@@ -1,0 +1,7 @@
+<gresources>
+    <gresource prefix="/">
+        <!--<file>icon.png</file>-->
+        <!-- text files such as XML can be compressed to save memory -->
+        <file compressed="true">main.glade</file>
+    </gresource>
+</gresources>

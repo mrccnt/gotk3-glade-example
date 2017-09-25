@@ -1,5 +1,7 @@
 /.idea
-/bin
+/bin/*
+/glade/*.gresource
 /src/github.com
 /src/golang.org
 /vendor
+!/bin/.gitkeep
