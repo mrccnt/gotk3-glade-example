@@ -18,16 +18,32 @@ Experimenting with go and gtk using [gotk3](https://github.com/gotk3/gotk3) and 
     Go 1.8.3
     GTK 3.18
 
-The `run.sh` and  `build.sh` scripts make use of the corresponding gtk build tags.
+The `install.sh` script makes use of the corresponding gtk build tags.
 
 ## Dependencies
 
 We also need to install [glide](https://glide.sh) as package manager.
 
+Install on a per project base:
+
 ```bash
     # Make glide available in ./bin directory
     #
     curl https://glide.sh/get | sh
+```
+
+Or install via PPA:
+
+```bash
+    # Make glide globally available
+    #
+    sudo add-apt-repository ppa:masterminds/glide
+    sudo apt-get update
+    sudo apt-get install glide
+```
+Now install the dependencies:
+
+```bash
     
     # Install dependencies in ./vendor directory
     #
@@ -45,12 +61,9 @@ We also need to install [glide](https://glide.sh) as package manager.
     # Install
     #
     ./install.sh
-    
-    # Build
-    #
-    ./build.sh
+
     
     # Run
     #
-    bin/gotk3-glade-example
+    gotk3-glade-example
 ```

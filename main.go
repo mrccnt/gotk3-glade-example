@@ -17,13 +17,13 @@ func main() {
 
 	gtk.Init(&os.Args)
 
-	b, err := Builder()
+	bldr, err := builder()
 	if err != nil {
 		log.Fatal(err.Error())
 		os.Exit(1)
 	}
 
-	window, err := Window(b)
+	window, err := window(bldr)
 	if err != nil {
 		log.Fatal(err.Error())
 		os.Exit(1)
@@ -34,14 +34,12 @@ func main() {
 	window.Connect("destroy", destroy)
 	window.ShowAll()
 
-	array := []string{"hello world", "what ever", "lorem ipsum", "foo bar"}
-
-	populateList(b, array)
+	loadlist(bldr, []string{"hello world", "what ever", "lorem ipsum", "foo bar"})
 
 	gtk.Main()
 }
 
-func Builder() (*gtk.Builder, error) {
+func builder() (*gtk.Builder, error) {
 
 	filename, err := osext.Executable()
 	if err != nil {
@@ -67,7 +65,7 @@ func Builder() (*gtk.Builder, error) {
 	return b, nil
 }
 
-func Window(b *gtk.Builder) (*gtk.Window, error) {
+func window(b *gtk.Builder) (*gtk.Window, error) {
 
 	obj, err := b.GetObject(WindowName)
 	if err != nil {
@@ -82,7 +80,7 @@ func Window(b *gtk.Builder) (*gtk.Window, error) {
 	return window, nil
 }
 
-func List(b *gtk.Builder) (*gtk.ListBox, error) {
+func listbox(b *gtk.Builder) (*gtk.ListBox, error) {
 
 	obj, err := b.GetObject(ListboxName)
 	if err != nil {
@@ -97,20 +95,15 @@ func List(b *gtk.Builder) (*gtk.ListBox, error) {
 	return lb, nil
 }
 
-func populateList(b *gtk.Builder, array []string) {
+func loadlist(b *gtk.Builder, data []string) {
 
-	lb, err := List(b)
+	box, err := listbox(b)
 	if err != nil {
 		log.Fatal(err.Error())
 		os.Exit(1)
 	}
 
-	for index, element := range array {
-		r, err := gtk.ListBoxRowNew()
-		if err != nil {
-			log.Fatal(err.Error())
-			os.Exit(1)
-		}
+	for index, element := range data {
 
 		lbl, err :=  gtk.LabelNew(element)
 		if err != nil {
@@ -121,12 +114,18 @@ func populateList(b *gtk.Builder, array []string) {
 		lbl.SetXAlign(0)
 		lbl.SetMarginStart(5)
 
-		r.Add(lbl)
+		row, err := gtk.ListBoxRowNew()
+		if err != nil {
+			log.Fatal(err.Error())
+			os.Exit(1)
+		}
 
-		lb.Insert(r, index)
+		row.Add(lbl)
+
+		box.Insert(row, index)
 	}
 
-	lb.ShowAll()
+	box.ShowAll()
 }
 
 func destroy() {
