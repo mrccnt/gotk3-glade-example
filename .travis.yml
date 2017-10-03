@@ -1,23 +1,33 @@
 language: go
 
-sudo: false
-
 go:
   - 1.8
 
-os:
-  - linux
+env:
+  - GOARCH=amd64
 
-install: true
+sudo: required
+dist: trusty
 
 before_install:
   - sudo add-apt-repository ppa:masterminds/glide -y
-  - sudo apt-get -q update
-  - sudo apt-get install -y glide libgtk-3-dev libcairo2-dev libglib2.0-dev
+  - sudo apt-get -qq update
+  - sudo apt-get install -qq -y glide xvfb gtk+3.0 libgtk-3-dev libcairo2-dev libglib2.0-dev
   - glide install
   - ln -sr vendor/github.com src/github.com
+  - "export DISPLAY=:99.0"
+  - sudo /usr/bin/Xvfb $DISPLAY 2>1 > /dev/null &
+  - "export GTK_VERSION=$(pkg-config --modversion gtk+-3.0 | tr . _| cut -d '_' -f 1-2)"
+  - "export Glib_VERSION=$(pkg-config --modversion glib-2.0)"
+  - "export Cairo_VERSION=$(pkg-config --modversion cairo)"
+  - "export Pango_VERSION=$(pkg-config --modversion pango)"
+  - echo "GTK version ${GTK_VERSION} (Glib ${Glib_VERSION}, Cairo ${Cairo_VERSION}, Pango ${Pango_VERSION})"
 
-script: go test -v -tags gtk_3_12
+install:
+  - go install -v -tags "gtk_${GTK_VERSION}"
+
+script:
+  - go test -v -tags "gtk_${GTK_VERSION}"
 
 notifications:
   email: false
