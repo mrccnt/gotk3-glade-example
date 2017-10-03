@@ -24,7 +24,7 @@ before_install:
   - echo "Glib  version ${Glib_VERSION}"
   - echo "Cairo version ${Cairo_VERSION}"
   - echo "Pango version ${Pango_VERSION}"
-install:
+# install:
 #  - echo "GTK   version ${GTK_VERSION}"
 #  - echo "Glib  version ${Glib_VERSION}"
 #  - echo "Cairo version ${Cairo_VERSION}"
