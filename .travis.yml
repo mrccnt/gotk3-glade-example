@@ -29,7 +29,7 @@ install:
 #  - echo "Glib  version ${Glib_VERSION}"
 #  - echo "Cairo version ${Cairo_VERSION}"
 #  - echo "Pango version ${Pango_VERSION}"
-  - go install -v -tags "gtk_${GTK_VERSION}"
+#  - go install -v -tags "gtk_${GTK_VERSION}"
 script:
   - echo "GTK   version ${GTK_VERSION}"
   - echo "Glib  version ${Glib_VERSION}"
