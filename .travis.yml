@@ -1,14 +1,13 @@
 language: go
-
 go:
   - 1.8
-
+  - master
 env:
   - GOARCH=amd64
-
-sudo: required
 dist: trusty
-
+sudo: required
+notifications:
+  email: false
 before_install:
   - sudo add-apt-repository ppa:masterminds/glide -y
   - sudo apt-get -qq update
@@ -21,15 +20,19 @@ before_install:
   - export Glib_VERSION=$(pkg-config --modversion glib-2.0)
   - export Cairo_VERSION=$(pkg-config --modversion cairo)
   - export Pango_VERSION=$(pkg-config --modversion pango)
-  - echo "GTK version ${GTK_VERSION}"
-  - echo "GTK version $(pkg-config --modversion gtk+-3.0)"
-  - echo $(pkg-config --modversion gtk+-3.0)
-
+  - echo "GTK   version ${GTK_VERSION}"
+  - echo "Glib  version ${Glib_VERSION}"
+  - echo "Cairo version ${Cairo_VERSION}"
+  - echo "Pango version ${Pango_VERSION}"
 install:
+#  - echo "GTK   version ${GTK_VERSION}"
+#  - echo "Glib  version ${Glib_VERSION}"
+#  - echo "Cairo version ${Cairo_VERSION}"
+#  - echo "Pango version ${Pango_VERSION}"
   - go install -v -tags "gtk_${GTK_VERSION}"
-
 script:
+  - echo "GTK   version ${GTK_VERSION}"
+  - echo "Glib  version ${Glib_VERSION}"
+  - echo "Cairo version ${Cairo_VERSION}"
+  - echo "Pango version ${Pango_VERSION}"
   - go test -v -tags "gtk_${GTK_VERSION}"
-
-notifications:
-  email: false
