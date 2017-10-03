@@ -2,22 +2,19 @@ package main
 
 import (
 	"github.com/gotk3/gotk3/gtk"
-	"github.com/kardianos/osext"
 	"os"
 	"log"
-	"path"
 )
 
 const WindowName = "window"
 const ListboxName = "listbox"
 const UiMain = "glade/main.glade"
-// const ResMain = "glade/main.gresource"
 
 func main() {
 
 	gtk.Init(&os.Args)
 
-	bldr, err := builder()
+	bldr, err := builder(UiMain)
 	if err != nil {
 		log.Fatal(err.Error())
 		os.Exit(1)
@@ -30,7 +27,7 @@ func main() {
 	}
 
 	window.SetTitle("GO GTK3 Glade Example")
-	window.SetDefaultSize(365, 470)
+	window.SetDefaultSize(365, 490)
 	window.Connect("destroy", destroy)
 	window.ShowAll()
 
@@ -39,32 +36,25 @@ func main() {
 	gtk.Main()
 }
 
-func builder() (*gtk.Builder, error) {
-
-	filename, err := osext.Executable()
-	if err != nil {
-		return nil, err
-	}
+// builder returns pointer to gtk.builder loaded with glade resource (if resource is given)
+func builder(filename string) (*gtk.Builder, error) {
 
 	b, err := gtk.BuilderNew()
 	if err != nil {
 		return nil, err
 	}
 
-	//b, err := gtk.BuilderNewFromResource(path.Dir(path.Dir(filename)) + "/" + ResMain)
-	//if err != nil {
-	//	return nil, err
-	//}
-
-	// err = b.AddFromResource(path.Dir(path.Dir(filename)) + "/" + ResMain)
-	err = b.AddFromFile(path.Dir(path.Dir(filename)) + "/" + UiMain)
-	if err != nil {
-		return nil, err
+	if filename != "" {
+		err = b.AddFromFile(filename)
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	return b, nil
 }
 
+// windows returns gtk.Window object from the glade resource
 func window(b *gtk.Builder) (*gtk.Window, error) {
 
 	obj, err := b.GetObject(WindowName)
@@ -80,6 +70,7 @@ func window(b *gtk.Builder) (*gtk.Window, error) {
 	return window, nil
 }
 
+// windows returns gtk.ListBox object from the glade resource
 func listbox(b *gtk.Builder) (*gtk.ListBox, error) {
 
 	obj, err := b.GetObject(ListboxName)
@@ -95,6 +86,7 @@ func listbox(b *gtk.Builder) (*gtk.ListBox, error) {
 	return lb, nil
 }
 
+// loadlist populates ListBox with data
 func loadlist(b *gtk.Builder, data []string) {
 
 	box, err := listbox(b)
@@ -128,6 +120,7 @@ func loadlist(b *gtk.Builder, data []string) {
 	box.ShowAll()
 }
 
+// destroy is the triggered handler when closing/destroying the gui window
 func destroy() {
 	gtk.MainQuit()
 }
