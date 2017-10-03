@@ -17,7 +17,7 @@ before_install:
   - glide install
   - ln -sr vendor/github.com src/github.com
 
-script: go test -v -tags gtk_3_18
+script: go test -v -tags gtk_3_12
 
 notifications:
   email: false
