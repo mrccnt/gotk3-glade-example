@@ -1,7 +1,6 @@
 language: go
 go:
   - 1.8
-  - master
 env:
   - GOARCH=amd64
 dist: trusty
@@ -13,26 +12,17 @@ before_install:
   - sudo apt-get -qq update
   - sudo apt-get install -qq -y glide xvfb gtk+3.0 libgtk-3-dev libcairo2-dev libglib2.0-dev
   - glide install
-  - ln -sr vendor/github.com src/github.com
+  - cp -r vendor/github.com src/github.com
+#  - ln -sr vendor/github.com src/github.com
   - export DISPLAY=:99.0
   - sudo /usr/bin/Xvfb $DISPLAY 2>1 > /dev/null &
   - export GTK_VERSION=$(pkg-config --modversion gtk+-3.0 | tr . _| cut -d '_' -f 1-2)
   - export Glib_VERSION=$(pkg-config --modversion glib-2.0)
   - export Cairo_VERSION=$(pkg-config --modversion cairo)
   - export Pango_VERSION=$(pkg-config --modversion pango)
-  - echo "GTK   version ${GTK_VERSION}"
-  - echo "Glib  version ${Glib_VERSION}"
-  - echo "Cairo version ${Cairo_VERSION}"
-  - echo "Pango version ${Pango_VERSION}"
-# install:
-#  - echo "GTK   version ${GTK_VERSION}"
-#  - echo "Glib  version ${Glib_VERSION}"
-#  - echo "Cairo version ${Cairo_VERSION}"
-#  - echo "Pango version ${Pango_VERSION}"
-#  - go install -v -tags "gtk_${GTK_VERSION}"
+install:
+  - echo "GTK ${GTK_VERSION} - Glib ${Glib_VERSION} - Cairo ${Cairo_VERSION} - Pango ${Pango_VERSION}"
+  - go install -v -tags "gtk_${GTK_VERSION}"
 script:
-  - echo "GTK   version ${GTK_VERSION}"
-  - echo "Glib  version ${Glib_VERSION}"
-  - echo "Cairo version ${Cairo_VERSION}"
-  - echo "Pango version ${Pango_VERSION}"
+  - echo "GTK ${GTK_VERSION} - Glib ${Glib_VERSION} - Cairo ${Cairo_VERSION} - Pango ${Pango_VERSION}"
   - go test -v -tags "gtk_${GTK_VERSION}"

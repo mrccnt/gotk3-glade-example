@@ -2,7 +2,6 @@
 
 [![license](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![goreportcard](https://goreportcard.com/badge/github.com/mrccnt/gotk3-glade-example)](https://goreportcard.com/report/github.com/mrccnt/gotk3-glade-example)
-[![buildstatus](https://api.travis-ci.org/mrccnt/gotk3-glade-example.svg?branch=master)](https://travis-ci.org/mrccnt/gotk3-glade-example)
 
 Experimenting with go and gtk using [gotk3](https://github.com/gotk3/gotk3) and [glade](https://glade.gnome.org/).
 
