@@ -7,4 +7,5 @@
 /src/golang.org
 /vendor
 /gotk3-glade-example
+*.glade~
 !/bin/.gitkeep
