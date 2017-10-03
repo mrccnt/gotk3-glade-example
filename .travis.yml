@@ -3,10 +3,12 @@ language: go
 sudo: false
 
 go:
-  - master
+  - 1.8
 
 os:
   - linux
+
+install: true
 
 before_install:
   - sudo add-apt-repository ppa:masterminds/glide -y
