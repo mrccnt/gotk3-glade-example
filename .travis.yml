@@ -16,8 +16,9 @@ addons:
 notifications:
   email: false
 before_install:
-  - go get -v github.com/Masterminds/glide
-  - cd $GOPATH/src/github.com/Masterminds/glide && git checkout tags/0.12.3 && go install && cd -
+  - sudo add-apt-repository ppa:masterminds/glide -y
+  - sudo apt-get update -qq
+  - sudo apt-get install -y glide
   - glide install
   - ls -la
   - ln -sr vendor/github.com src/github.com
