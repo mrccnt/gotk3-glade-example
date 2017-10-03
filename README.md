@@ -1,5 +1,8 @@
 # Go GTK3 Glade Example
 
+[![license](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+[![goreportcard](https://goreportcard.com/badge/github.com/mrccnt/gotk3-glade-example)](https://goreportcard.com/report/github.com/mrccnt/gotk3-glade-example)
+
 Experimenting with go and gtk using [gotk3](https://github.com/gotk3/gotk3) and [glade](https://glade.gnome.org/).
 
 ![screenshot](screenshot.png)
