@@ -2,12 +2,17 @@ package main
 
 import (
 	"github.com/gotk3/gotk3/gtk"
-	"os"
 	"log"
+	"os"
 )
 
+// WindowName is the defined identifier for the main window in the glade template
 const WindowName = "window"
+
+// ListboxName is the defined identifier for the list box in the glade template
 const ListboxName = "listbox"
+
+// UiMain represent the path to our glade file
 const UiMain = "glade/main.glade"
 
 func main() {
@@ -97,7 +102,7 @@ func loadlist(b *gtk.Builder, data []string) {
 
 	for index, element := range data {
 
-		lbl, err :=  gtk.LabelNew(element)
+		lbl, err := gtk.LabelNew(element)
 		if err != nil {
 			log.Fatal(err.Error())
 			os.Exit(1)
