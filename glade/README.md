@@ -1,6 +1,7 @@
 # Glade
 
-Handle `*.glade` interface files and compile `.gresource` files.
+If you need to package more files or other assets this may come in handy. But do not forget to implement loading those
+resources in code! It is not part of the example here. ;)
 
 ## Files
 
@@ -10,6 +11,9 @@ Handle `*.glade` interface files and compile `.gresource` files.
 
 ## Generate GResource
 
-    # Build compressed .gresource bundle from glade files
-    #
+Build compressed `.gresource` bundle from interface and resources:
+
+```bash
     glib-compile-resources --target=main.gresource resources.xml
+```
+

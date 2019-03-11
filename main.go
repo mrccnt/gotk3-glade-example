@@ -1,48 +1,70 @@
 package main
 
 import (
+	"fmt"
 	"github.com/gotk3/gotk3/gtk"
-	"log"
 	"os"
 )
 
-// WindowName is the defined identifier for the main window in the glade template
+// WindowName is the defined identifier for the main getWindow in the glade template
 const WindowName = "window"
 
 // ListboxName is the defined identifier for the list box in the glade template
 const ListboxName = "listbox"
 
-// UiMain represent the path to our glade file
-const UiMain = "glade/main.glade"
+// ButtonName is the defined identifier for the list box in the glade template
+const ButtonName = "button"
+
+// UIMain is the path to our glade file
+const UIMain = "glade/main.glade"
 
 func main() {
 
 	gtk.Init(&os.Args)
 
-	bldr, err := builder(UiMain)
+	bldr, err := getBuilder(UIMain)
 	if err != nil {
-		log.Fatal(err.Error())
-		os.Exit(1)
+		panic(err)
 	}
 
-	window, err := window(bldr)
+	window, err := getWindow(bldr)
 	if err != nil {
-		log.Fatal(err.Error())
-		os.Exit(1)
+		panic(err)
 	}
 
 	window.SetTitle("GO GTK3 Glade Example")
 	window.SetDefaultSize(365, 490)
-	window.Connect("destroy", destroy)
+	_, err = window.Connect("destroy", func() {
+		gtk.MainQuit()
+	})
+	if err != nil {
+		panic(err)
+	}
+
 	window.ShowAll()
 
-	loadlist(bldr, []string{"hello world", "what ever", "lorem ipsum", "foo bar"})
+	err = loadlist(bldr, []string{"hello world", "what ever", "lorem ipsum", "foo bar"})
+	if err != nil {
+		panic(err)
+	}
+
+	button, err := getButton(bldr)
+	if err != nil {
+		panic(err)
+	}
+
+	_, err = button.Connect("clicked", func() {
+		fmt.Println("Click-Click!")
+	})
+	if err != nil {
+		panic(err)
+	}
 
 	gtk.Main()
 }
 
-// builder returns pointer to gtk.builder loaded with glade resource (if resource is given)
-func builder(filename string) (*gtk.Builder, error) {
+// getBuilder returns *gtk.getBuilder loaded with glade resource (if resource is given)
+func getBuilder(filename string) (*gtk.Builder, error) {
 
 	b, err := gtk.BuilderNew()
 	if err != nil {
@@ -59,8 +81,8 @@ func builder(filename string) (*gtk.Builder, error) {
 	return b, nil
 }
 
-// windows returns gtk.Window object from the glade resource
-func window(b *gtk.Builder) (*gtk.Window, error) {
+// getWindow returns *gtk.Window object from the glade resource
+func getWindow(b *gtk.Builder) (*gtk.Window, error) {
 
 	obj, err := b.GetObject(WindowName)
 	if err != nil {
@@ -75,8 +97,24 @@ func window(b *gtk.Builder) (*gtk.Window, error) {
 	return window, nil
 }
 
-// windows returns gtk.ListBox object from the glade resource
-func listbox(b *gtk.Builder) (*gtk.ListBox, error) {
+// getButton returns *gtk.Button object from the glade resource
+func getButton(b *gtk.Builder) (*gtk.Button, error) {
+
+	obj, err := b.GetObject(ButtonName)
+	if err != nil {
+		return nil, err
+	}
+
+	button, ok := obj.(*gtk.Button)
+	if !ok {
+		return nil, err
+	}
+
+	return button, nil
+}
+
+// getListbox returns *gtk.ListBox object from the glade resource
+func getListbox(b *gtk.Builder) (*gtk.ListBox, error) {
 
 	obj, err := b.GetObject(ListboxName)
 	if err != nil {
@@ -92,20 +130,18 @@ func listbox(b *gtk.Builder) (*gtk.ListBox, error) {
 }
 
 // loadlist populates ListBox with data
-func loadlist(b *gtk.Builder, data []string) {
+func loadlist(b *gtk.Builder, data []string) error {
 
-	box, err := listbox(b)
+	lb, err := getListbox(b)
 	if err != nil {
-		log.Fatal(err.Error())
-		os.Exit(1)
+		return err
 	}
 
 	for index, element := range data {
 
 		lbl, err := gtk.LabelNew(element)
 		if err != nil {
-			log.Fatal(err.Error())
-			os.Exit(1)
+			return err
 		}
 
 		lbl.SetXAlign(0)
@@ -113,19 +149,15 @@ func loadlist(b *gtk.Builder, data []string) {
 
 		row, err := gtk.ListBoxRowNew()
 		if err != nil {
-			log.Fatal(err.Error())
-			os.Exit(1)
+			return err
 		}
 
 		row.Add(lbl)
 
-		box.Insert(row, index)
+		lb.Insert(row, index)
 	}
 
-	box.ShowAll()
-}
+	lb.ShowAll()
 
-// destroy is the triggered handler when closing/destroying the gui window
-func destroy() {
-	gtk.MainQuit()
+	return nil
 }

@@ -1,11 +1,4 @@
 /.idea
-/bin
 /dist
 /glade/*.gresource
-/pkg
-/src/github.com
-/src/golang.org
 /vendor
-/gotk3-glade-example
-*.glade~
-!/bin/.gitkeep

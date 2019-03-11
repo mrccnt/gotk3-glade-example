@@ -1,6 +1,0 @@
-package: .
-import:
-- package: github.com/gotk3/gotk3
-  subpackages:
-  - gtk
-- package: github.com/kardianos/osext
