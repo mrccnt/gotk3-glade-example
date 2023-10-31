@@ -1,28 +1,27 @@
 package main
 
 import (
+	"embed"
 	"fmt"
 	"github.com/gotk3/gotk3/gtk"
 	"os"
 )
 
-// WindowName is the defined identifier for the main getWindow in the glade template
-const WindowName = "window"
+//go:embed glade/*
+var fs embed.FS
 
-// ListboxName is the defined identifier for the list box in the glade template
-const ListboxName = "listbox"
-
-// ButtonName is the defined identifier for the list box in the glade template
-const ButtonName = "button"
-
-// UIMain is the path to our glade file
-const UIMain = "glade/main.glade"
+const (
+	WindowName  = "window"
+	ListboxName = "listbox"
+	ButtonName  = "button"
+	UIMain      = "glade/main.glade"
+)
 
 func main() {
 
 	gtk.Init(&os.Args)
 
-	bldr, err := getBuilder(UIMain)
+	bldr, err := getBuilder()
 	if err != nil {
 		panic(err)
 	}
@@ -34,12 +33,9 @@ func main() {
 
 	window.SetTitle("GO GTK3 Glade Example")
 	window.SetDefaultSize(365, 490)
-	_, err = window.Connect("destroy", func() {
+	_ = window.Connect("destroy", func() {
 		gtk.MainQuit()
 	})
-	if err != nil {
-		panic(err)
-	}
 
 	window.ShowAll()
 
@@ -53,29 +49,29 @@ func main() {
 		panic(err)
 	}
 
-	_, err = button.Connect("clicked", func() {
+	_ = button.Connect("clicked", func() {
 		fmt.Println("Click-Click!")
 	})
-	if err != nil {
-		panic(err)
-	}
 
 	gtk.Main()
 }
 
 // getBuilder returns *gtk.getBuilder loaded with glade resource (if resource is given)
-func getBuilder(filename string) (*gtk.Builder, error) {
+func getBuilder() (*gtk.Builder, error) {
 
 	b, err := gtk.BuilderNew()
 	if err != nil {
 		return nil, err
 	}
 
-	if filename != "" {
-		err = b.AddFromFile(filename)
-		if err != nil {
-			return nil, err
-		}
+	bs, err := fs.ReadFile(UIMain)
+	if err != nil {
+		return nil, err
+	}
+
+	err = b.AddFromString(string(bs))
+	if err != nil {
+		return nil, err
 	}
 
 	return b, nil

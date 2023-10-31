@@ -1,7 +1,8 @@
-# Go GTK3 Glade Example
-
+![golangci](https://github.com/mrccnt/gotk3-glade-example/actions/workflows/golangci.yml/badge.svg)
 [![license](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![goreportcard](https://goreportcard.com/badge/github.com/mrccnt/gotk3-glade-example)](https://goreportcard.com/report/github.com/mrccnt/gotk3-glade-example)
+
+# Go GTK3 Glade Example
 
 Experimenting with gtk using [gotk3](https://github.com/gotk3/gotk3).
 
@@ -9,9 +10,9 @@ Experimenting with gtk using [gotk3](https://github.com/gotk3/gotk3).
 
 ## Environment
 
-    Ubuntu 16.04 LTS
-    Go 1.11.5
-    GTK 3.22
+    Ubuntu 22.04.03 LTS
+    Go 1.21.0
+    GTK 3.24.33
     
 ## Dependencies
 
@@ -26,7 +27,7 @@ Check your GTK3 version:
 ```bash
     apt-cache policy libgtk-3-0 | grep Installed
     #
-    #> Installed: 3.22.30-1ubuntu2
+    #> Installed: 3.24.33-1ubuntu2
 ```
 
 ## Run, Install and Build
@@ -34,11 +35,9 @@ Check your GTK3 version:
 To run or build the code we need to pass a build tag with our given gtk3 version:
 
 ```bash
-    dep ensure
-    
-    go run     -v -tags gtk_3_22 main.go
-    go install -v -tags gtk_3_22
-    go build   -v -tags gtk_3_22 -o dist/gotk3-glade-example
+    go run     -v -tags gtk_3_24 main.go
+    go install -v -tags gtk_3_24
+    go build   -v -tags gtk_3_24 -o dist/gotk3-glade-example
 ```
 
 ## Links

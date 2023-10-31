@@ -1,0 +1,15 @@
+issues:
+  fix: true
+
+linters:
+  enable:
+    - typecheck
+    - errorlint
+    - gocognit
+    - gocritic
+    - gocyclo
+    - gosec
+    - revive
+    - stylecheck
+    - usestdlibvars
+    - gofmt
