@@ -1,4 +1,3 @@
-![golangci](https://github.com/mrccnt/gotk3-glade-example/actions/workflows/golangci.yml/badge.svg)
 [![license](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![goreportcard](https://goreportcard.com/badge/github.com/mrccnt/gotk3-glade-example)](https://goreportcard.com/report/github.com/mrccnt/gotk3-glade-example)
 
